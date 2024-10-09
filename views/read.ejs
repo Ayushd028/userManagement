@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Link to external CSS styles -->
+
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>All Users</title>
+  </head>
+  <body class="bg-zinc-900 text-white">
+    <div class="w-full h-full p-10">
+      <div class="text-xl tracking-tighter mb-3 text-left pb-5">
+        <a href="/" class="text-xl text-blue-500 hover:underline">Home</a>
+      </div>
+
+      <h1 class="text-4xl tracking-tighter mb-5 text-center pb-5">All Users</h1>
+
+      <!-- Grid with 4 cards per row -->
+
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-center">
+        <%if(allUsers.length === 0){%>
+        <p class="text-center text-zinc-400">No users found</p>
+        <% } else { }%>
+
+        <!-- Loop through all users and display them -->
+
+        <% allUsers.forEach((user) => { %>
+        <div
+          class="w-full p-6 bg-zinc-800 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out flex flex-col gap-2">
+          <!-- User image -->
+
+          <div class="w-full h-80 rounded-lg bg-gray-700 overflow-hidden">
+            <img
+              class="w-full h-full object-fit"
+              src="<%= user.image %>"
+              alt="<%= user.name %>'s Image"
+              onerror="this.src='https://via.placeholder.com/150?text=No+Image'" />
+          </div>
+
+          <!-- User details -->
+
+          <h3 class="text-2xl font-semibold mt-3 tracking-tighter truncate">
+            <%= user.name %>
+          </h3>
+          <h5 class="text-zinc-400 text-md truncate"><%= user.email %></h5>
+
+          <!-- Edit/Delete links -->
+
+          <div class="flex justify-between mt-4 text-lg">
+            <a
+              href="/edit/<%= user._id %>"
+              class="text-blue-500 hover:underline"
+              name="edit"
+              >Edit User</a
+            >
+            <a
+              href="/delete/<%= user._id %>"
+              class="text-red-500 hover:underline"
+              name="delete"
+              >Delete User</a
+            >
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+  </body>
+</html>
